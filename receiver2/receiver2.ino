@@ -22,7 +22,7 @@ int ReceivedMessage[1] = {000}; // Used to store value received by the NRF24L01
 RF24 radio(7,8); // NRF24L01 used SPI pins + Pin 7 and 8 on the UNO
 
 const uint64_t pipe = 0xE6E6E6E6E6E6; // Needs to be the same for communicating between 2 NRF24L01 
-const uint64_t pipe2 = 0xE6E6E6E6E6E5; // Needs to be the same for communicating between 2 NRF24L01 
+const uint64_t pipe2 = 0xE6E6E6E6E6E3; // Needs to be the same for communicating between 2 NRF24L01 
 const uint64_t pipeR = 0xE6E6E6E6E6E4; // Needs to be the same for communicating between 2 NRF24L01
 
 void setup(void){

@@ -21,8 +21,8 @@ int ReceivedMessage[1] = {000};
 
 RF24 radio(7,8); // NRF24L01 used SPI pins + Pin 9 and 10 on the NANO
 
-const uint64_t pipe = 0xE6E6E6E6E6E6; // Needs to be the same for communicating between 2 NRF24L01 
-const uint64_t pipe2 = 0xE6E6E6E6E6E5; // Needs to be the same for communicating between 2 NRF24L01
+const uint64_t pipe = 0xE6E6E6E6E6E5; // Needs to be the same for communicating between 2 NRF24L01 
+const uint64_t pipe2 = 0xE6E6E6E6E6E3; // Needs to be the same for communicating between 2 NRF24L01
 const uint64_t pipeL = 0xE6E6E6E6E6E4; // Needs to be the same for communicating between 2 NRF24L01
 
 
