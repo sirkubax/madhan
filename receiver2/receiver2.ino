@@ -22,7 +22,8 @@ int ReceivedMessage[1] = {000}; // Used to store value received by the NRF24L01
 RF24 radio(7,8); // NRF24L01 used SPI pins + Pin 7 and 8 on the UNO
 
 const uint64_t pipe = 0xE6E6E6E6E6E6; // Needs to be the same for communicating between 2 NRF24L01 
-
+const uint64_t pipe2 = 0xE6E6E6E6E6E5; // Needs to be the same for communicating between 2 NRF24L01 
+const uint64_t pipeR = 0xE6E6E6E6E6E4; // Needs to be the same for communicating between 2 NRF24L01
 
 void setup(void){
 
@@ -32,6 +33,7 @@ void setup(void){
 radio.begin(); // Start the NRF24L01
 
 radio.openReadingPipe(1,pipe); // Get NRF24L01 ready to receive
+radio.openReadingPipe(2,pipe2); // Get NRF24L01 ready to receive
 
 radio.startListening(); // Listen to see if information received
 
@@ -42,23 +44,40 @@ void loop(void){
 
 while (radio.available())
 {
-  radio.read(ReceivedMessage, 1); // Read information from the NRF24L01
-  
-  if (ReceivedMessage[0] == 111) // Indicates switch is pressed
-  {
-                // If an ack with payload was received
-                Serial.print("Got response ");
-                Serial.print(ReceivedMessage[0]);
-                Serial.print("\n");
-            
-  }
-  else
-  {
+    radio.read(ReceivedMessage, 1); // Read information from the NRF24L01
+    
+    if (ReceivedMessage[0] == 111) // Indicates switch is pressed
+    {
                   // If an ack with payload was received
-                Serial.print("Got response ");
-                Serial.print(ReceivedMessage[0]);
-                Serial.print("\n");
-  }
-  delay(1000);
+                  Serial.print("Got response ");
+                  Serial.print(ReceivedMessage[0]);
+                  Serial.print("\n");
+              
+    }
+    else if (ReceivedMessage[0] == 101) // Indicates switch is pressed
+    {
+                  // If an ack with payload was received
+                  Serial.print("Got response ");
+                  Serial.print(ReceivedMessage[0]);
+                  Serial.print("\n");
+                               
+    }
+    else
+    {
+                    // If an ack with payload was received
+                  Serial.print("Got response ");
+                  Serial.print(ReceivedMessage[0]);
+                  Serial.print("\n");
+    }
+    delay(10);
+    radio.stopListening(); // Listen to see if information received
+    delay(10);
+    radio.openWritingPipe(pipeR);
+    for (int i = 0 ; i < 1; i++){
+      radio.write(ReceivedMessage, 1); // Send value through NRF24L01
+      delay(10);
+    }
+    radio.startListening(); // Listen to see if information received
+    delay(10);
   }
 }
